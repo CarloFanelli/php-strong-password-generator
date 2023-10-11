@@ -1,7 +1,5 @@
 <?php
 
-//var_dump($password_length);
-
 function generatePsw(int $length)
 {
 
@@ -15,6 +13,4 @@ function generatePsw(int $length)
     return $password_generate;
 }
 
-
-
-//header('Location: ./password.php');
+header('Location: ./result.php');
