@@ -1,7 +1,19 @@
 <!-- Creare un form che invii in GET la lunghezza della password. Una nostra funzione utilizzerà questo dato per generare una password casuale (composta da lettere, lettere maiuscole, numeri e simboli) da restituire all’utente. Scriviamo tutto (logica e layout) in un unico file index.php
  -->
 <?php
-include './functions.php'
+include __DIR__ . '/functions.php';
+
+var_dump($_GET);
+
+if (isset($_GET['password_length'])) {
+
+    $password = generatePsw($_GET['password_length']);
+
+    session_start();
+
+    $_SESSION['password'] = $password;
+}
+
 
 ?>
 
@@ -26,7 +38,8 @@ include './functions.php'
     <main>
 
         <div class="container">
-            <form class="py-4 m-4" method="GET">
+            <form class="py-4 m-4" method="GET" action="./password.php">
+                <!-- action="./password.php" -->
                 <div class="mb-3 row">
                     <label for="password_length" class="col-4 col-form-label">LUNGHEZZA</label>
                     <div class="col-8">
@@ -42,8 +55,10 @@ include './functions.php'
             </form>
             <div class="row">
                 <div class="col-6">
-                    <h6>la tua password da <?php echo $password_length; ?> caratteri:</h6>
-                    <p class="text-wrap"><?php echo generatePsw($password_length); ?></p>
+                    <?php if (isset($_GET['password_length'])) : ?>
+                        <h6>la tua password da <?php echo $_GET['password_length']; ?> caratteri:</h6>
+                        <p class="text-wrap"><?php echo $password; ?></p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
